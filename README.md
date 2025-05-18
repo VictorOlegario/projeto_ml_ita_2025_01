@@ -4,11 +4,11 @@ Este repositório contém o modelo desenvolvido para o trabalho da disciplina de
 
 Intregrantes do Grupo 
 
-Felipe Gomes
-Lennon Falcao
-Luis Alexandre
-luiz Vitor Tozi 
-Victor Hugo Reis Olegario
+  Felipe Gomes
+  Lennon Falcao
+  Luis Alexandre
+  luiz Vitor Tozi 
+  Victor Hugo Reis Olegario
 
 ## Introdução
 
@@ -70,16 +70,16 @@ A base simula resultados estruturais de uma fuselagem submetida a diferentes sit
 
 ## Etapas do Projeto
 
-1.Introdução e limpeza de dados
-2.Análise exploratória
-3.Visualização de outliers
-4.Pré-processamento
-5.Testes com KNN e Árvore de Decisão
-6.Avaliação com MSE e R²
-7.Gráficos comparativos
+  1.Introdução e limpeza de dados
+  2.Análise exploratória
+  3.Visualização de outliers
+  4.Pré-processamento
+  5.Testes com KNN e Árvore de Decisão
+  6.Avaliação com MSE e R²
+  7.Gráficos comparativos
 
 
-### 4.Pré-processamento:
+   4.Pré-processamento:
 - Remoção da coluna `EID`
 - Conversão da variável `type` para valor numérico (LabelEncoder)
 - One-hot encoding da variável `material`
@@ -90,30 +90,32 @@ A base simula resultados estruturais de uma fuselagem submetida a diferentes sit
 
 ### 5.Modelos testados:
 
-###  KNN (K-Nearest Neighbors)
-O KNN é um modelo de regressão baseado na média dos valores dos "K" vizinhos mais próximos de um ponto. Ele não cria uma equação ou estrutura fixa, apenas observa os dados ao redor e faz previsões com base na proximidade.  
+ KNN (K-Nearest Neighbors):
+  O KNN é um modelo de regressão baseado na média dos valores dos "K" vizinhos mais próximos de um ponto. Ele não cria uma equação ou estrutura fixa, apenas observa os dados ao redor e faz previsões com base na proximidade.  
 É sensível a outliers e escalas diferentes nas variáveis.
 
-### 🔹 Árvore de Decisão
-A Árvore de Decisão constrói uma estrutura de regras com base nos dados de entrada. Ela divide o espaço de dados em regiões e toma decisões com base em valores-limite. Lida bem com dados ruidosos, relações não lineares e é menos sensível a valores extremos.
+Árvore de Decisão
+  A Árvore de Decisão constrói uma estrutura de regras com base nos dados de entrada. Ela divide o espaço de dados em regiões e toma decisões com base em valores-limite. Lida bem com dados ruidosos, relações não lineares e é menos sensível a valores extremos.
 
 ### Avaliação:
 
-### ✔️ Erro Quadrático Médio (MSE)
-Mede o quão distantes, em média, as previsões estão dos valores reais.  
-Quanto menor o valor, melhor o desempenho do modelo.
+Erro Quadrático Médio (MSE)
+  Mede o quão distantes, em média, as previsões estão dos valores reais.  
+  Quanto menor o valor, melhor o desempenho do modelo.
 
 Coeficiente de Determinação (R²)
-Indica o quanto da variação dos dados o modelo consegue explicar.  
-Varia entre -∞ e 1, onde **1 significa ajuste perfeito**.
+  Indica o quanto da variação dos dados o modelo consegue explicar.  
+  Varia entre -∞ e 1, onde 1 significa ajuste perfeito.
 
 
 ## Resultados dos Modelos
-Modelo	Truncamento	Erro Quadrático Médio (MSE)	Coeficiente de Determinação (R²)
-KNN	Não	6.13 × 10³⁹	0.281
-KNN	Sim	488.526	0.99975
-Árvore de Decisão	Não	7.91 × 10³⁸	0.907
-Árvore de Decisão	Sim	1.364	0.999999
+
+ Modelo            | Truncamento   | Erro Quadrático Médio (MSE)   |   Coeficiente de Determinação (R²) |
+|:------------------|:--------------|:------------------------------|-----------------------------------:|
+| KNN               | Não           | 6.13 × 10³⁹                   |                           0.281    |
+| KNN               | Sim           | 488.526                       |                           0.99975  |
+| Árvore de Decisão | Não           | 7.91 × 10³⁸                   |                           0.907    |
+| Árvore de Decisão | Sim           | 1.364                         |                           0.999999 |
 
 ## Conclusões
 
