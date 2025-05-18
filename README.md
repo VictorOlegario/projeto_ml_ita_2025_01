@@ -6,7 +6,6 @@ Intregrantes do Grupo
 
   Felipe Gomes
   Lennon Falcao
-  Luis Alexandre
   luiz Vitor Tozi 
   Victor Hugo Reis Olegario
 
