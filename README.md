@@ -4,10 +4,10 @@ Este repositório contém o modelo desenvolvido para o trabalho da disciplina de
 
 Intregrantes do Grupo 
 
-- **Felipe Gomes
-- **Lennon Falcao
-- **Luiz Vitor Tozi
-- ** Victor Hugo Reis Olegario
+- Felipe Gomes
+- Lennon Falcao
+- Luiz Vitor Tozi
+- Victor Hugo Reis Olegario
 
 ## Introdução
 
