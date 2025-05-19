@@ -96,6 +96,12 @@ A base simula resultados estruturais de uma fuselagem submetida a diferentes sit
 Árvore de Decisão
   A Árvore de Decisão constrói uma estrutura de regras com base nos dados de entrada. Ela divide o espaço de dados em regiões e toma decisões com base em valores-limite. Lida bem com dados ruidosos, relações não lineares e é menos sensível a valores extremos.
 
+Random Forest
+  É um conjunto de várias árvores de decisão. O modelo constrói várias árvores diferentes e tira a média dos resultados para fazer a previsão final. é mais robusto que uma única árvore, reduz o risco de overfitting, alta precisão. contudo eé menos interpretável, pode ser mais lento em bases grandes.
+
+SVM (Support Vector Machine)
+  No caso de regressão (SVR), o SVM busca encontrar uma linha ou superfície que fique o mais próxima possível dos dados, mas dentro de uma margem de tolerância. A ideia é prever valores sem se deixar levar por outliers. eé bom para dados com margens bem definidas e problemas complexos. eé sensível ao escalonamento dos dados, difícil de ajustar e interpretar em problemas reais com ruído.
+
 ### Avaliação:
 
 Erro Quadrático Médio (MSE)
@@ -106,23 +112,43 @@ Coeficiente de Determinação (R²)
   Indica o quanto da variação dos dados o modelo consegue explicar.  
   Varia entre -∞ e 1, onde 1 significa ajuste perfeito.
 
+Erro Absoluto Médio (MAE)
+    Mede a média dos erros absolutos entre os valores previstos e os reais.
+    Mostra, em média, o quanto o modelo erra, sem penalizar erros maiores.
+    Quanto menor o valor, melhor o desempenho do modelo.
+
+Raiz do Erro Quadrático Médio (RMSE)
+    É a raiz quadrada da média dos erros ao quadrado.
+    Dá mais peso aos grandes erros, sendo útil para destacar desvios maiores.
+    Quanto menor o valor, melhor a precisão do modelo.
+
+## Metrica de avaliacao
+
+Métrica         |	Melhor valor
+MAE             | Menor
+RMSE            | Menor
+MSE             | Menor
+R²	            | Maior
 
 ## Resultados dos Modelos
 
- Modelo            | Truncamento   | Erro Quadrático Médio (MSE)   |   Coeficiente de Determinação (R²) |
-|:------------------|:--------------|:------------------------------|-----------------------------------:|
-| KNN               | Não           | 6.13 × 10³⁹                   |                           0.281    |
-| KNN               | Sim           | 488.526                       |                           0.99975  |
-| Árvore de Decisão | Não           | 7.91 × 10³⁸                   |                           0.907    |
-| Árvore de Decisão | Sim           | 1.364                         |                           0.999999 |
+
+
+
+![alt text](image-2.png)
+
+
+
+![alt text](image-3.png)
+
 
 ## Conclusões
 
-A análise comparativa mostrou que o modelo de Árvore de Decisão teve o melhor desempenho para esse estudo. Mesmo sem tratamento na variável life, a árvore conseguiu lidar bem com os dados, mantendo um R² próximo de 0,90. Após aplicar o truncamento (limitando life em 10⁵), o desempenho foi praticamente perfeito (R² ≈ 0,999999).
+A análise comparativa entre os modelos mostrou que a Árvore de Decisão foi a que apresentou o melhor desempenho para este estudo. Mesmo sem aplicar truncamento na variável life, o modelo conseguiu lidar bem com os dados, alcançando um R² próximo de 0,90. Após aplicar o truncamento (limitando life em 10⁵), o desempenho foi praticamente perfeito, com R² ≈ 0,999999.
 
-Já o KNN apresentou desempenho muito inferior quando os dados não foram tratados, com MSE alto e R² abaixo de 0,30. Após o truncamento, o modelo melhorou bastante, mas ainda assim ficou levemente abaixo da árvore.
+O KNN teve desempenho significativamente inferior na versão sem truncamento, com MSE elevado e R² abaixo de 0,30. Com o truncamento, o modelo melhorou bastante, mas ainda ficou abaixo da Árvore de Decisão em termos de estabilidade e precisão.
 
-Considerando os resultados, a Árvore de Decisão é o modelo mais indicado para este caso. Ela foi mais estável, precisa e menos sensível a valores extremos, se adaptando bem ao comportamento da base de fadiga estrutural.
+Considerando todas as métricas (MSE, MAE, RMSE e R²), a Árvore de Decisão com truncamento se mostrou o modelo mais indicado para este caso. Foi mais consistente, menos sensível a valores extremos e se adaptou muito bem ao comportamento da base de fadiga estrutural.
 
 
 **Autor:** Victor Olegario  
