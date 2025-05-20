@@ -71,84 +71,84 @@ A base simula resultados estruturais de uma fuselagem submetida a diferentes sit
 
   1.Introdução e limpeza de dados
   2.Análise exploratória
-  3.Visualização de outliers
   4.Pré-processamento
   5.Testes com KNN e Árvore de Decisão
   6.Avaliação com MSE e R²
   7.Gráficos comparativos
 
 
-   4.Pré-processamento:
+  4.Pré-processamento:
 - Remoção da coluna `EID`
 - Conversão da variável `type` para valor numérico (LabelEncoder)
 - One-hot encoding da variável `material`
 - Reescalonamento das variáveis de stress para o intervalo **[-1, 1]**
 - Geração de duas versões da base:
-  - Sem truncamento de `life`
-  - Com truncamento para valores de `life` acima de \(10^5\)
+- Sem truncamento de `life`
+- Com truncamento para valores de `life` acima de \(10^5\)
+- Aplicação de `log(life)` para melhorar a distribuição
 
-### 5.Modelos testados:
+## Avaliação das Métricas
 
- KNN (K-Nearest Neighbors):
-  O KNN é um modelo de regressão baseado na média dos valores dos "K" vizinhos mais próximos de um ponto. Ele não cria uma equação ou estrutura fixa, apenas observa os dados ao redor e faz previsões com base na proximidade.  
-É sensível a outliers e escalas diferentes nas variáveis.
+### Erro Quadrático Médio (MSE)
+- Mede o quão distantes, em média, as previsões estão dos valores reais.
+- Penaliza mais os grandes erros (elevação ao quadrado).
+- Quanto menor, melhor.
 
-Árvore de Decisão
-  A Árvore de Decisão constrói uma estrutura de regras com base nos dados de entrada. Ela divide o espaço de dados em regiões e toma decisões com base em valores-limite. Lida bem com dados ruidosos, relações não lineares e é menos sensível a valores extremos.
+### Erro Absoluto Médio (MAE)
+- Média dos erros absolutos.
+- Representa, em média, o quanto o modelo erra.
+- Quanto menor, melhor.
 
-Random Forest
-  É um conjunto de várias árvores de decisão. O modelo constrói várias árvores diferentes e tira a média dos resultados para fazer a previsão final. é mais robusto que uma única árvore, reduz o risco de overfitting, alta precisão. contudo eé menos interpretável, pode ser mais lento em bases grandes.
+### Raiz do Erro Quadrático Médio (RMSE)
+- Raiz quadrada do MSE.
+- Tem a mesma unidade da variável `y`.
+- Dá mais peso a grandes erros.
+- Quanto menor, melhor.
 
-SVM (Support Vector Machine)
-  No caso de regressão (SVR), o SVM busca encontrar uma linha ou superfície que fique o mais próxima possível dos dados, mas dentro de uma margem de tolerância. A ideia é prever valores sem se deixar levar por outliers. eé bom para dados com margens bem definidas e problemas complexos. eé sensível ao escalonamento dos dados, difícil de ajustar e interpretar em problemas reais com ruído.
+### Coeficiente de Determinação (R²)
+- Mede o quanto da variabilidade dos dados o modelo explica.
+- Varia de -∞ até 1.0.
+- Quanto mais próximo de 1, melhor.
 
-### Avaliação:
+### R² CV Médio (Validação Cruzada)
+- Média do R² nos folds da validação cruzada.
+- Avalia o quão bem o modelo generaliza.
+- Quanto mais próximo de 1, melhor.
 
-Erro Quadrático Médio (MSE)
-  Mede o quão distantes, em média, as previsões estão dos valores reais.  
-  Quanto menor o valor, melhor o desempenho do modelo.
+### R² CV Std (Desvio Padrão)
+- Mede a variação do R² entre os folds.
+- Quanto menor, mais estável o modelo.
 
-Coeficiente de Determinação (R²)
-  Indica o quanto da variação dos dados o modelo consegue explicar.  
-  Varia entre -∞ e 1, onde 1 significa ajuste perfeito.
+### Resumo das Métricas
 
-Erro Absoluto Médio (MAE)
-    Mede a média dos erros absolutos entre os valores previstos e os reais.
-    Mostra, em média, o quanto o modelo erra, sem penalizar erros maiores.
-    Quanto menor o valor, melhor o desempenho do modelo.
+| Métrica         | Objetivo Ideal               |
+|-----------------|------------------------------|
+| MAE             | Menor possível               |
+| RMSE            | Menor possível               |
+| MSE             | Menor possível               |
+| R²              | Maior possível (até 1.0)     |
+| R² CV Médio     | Maior possível (até 1.0)     |
+| R² CV Std       | Menor possível (próximo de 0)|
 
-Raiz do Erro Quadrático Médio (RMSE)
-    É a raiz quadrada da média dos erros ao quadrado.
-    Dá mais peso aos grandes erros, sendo útil para destacar desvios maiores.
-    Quanto menor o valor, melhor a precisão do modelo.
-
-## Metrica de avaliacao
-
-Métrica         |	Melhor valor
-MAE             | Menor
-RMSE            | Menor
-MSE             | Menor
-R²	            | Maior
-
-## Resultados dos Modelos
-
-
-
-
-![alt text](image-2.png)
-
+## Abordagens Comparadas
+1. **Original**: dados brutos
+2. **Truncado**: valores de `life` limitados a 100.000
+3. **Log**: aplicação de `log(life)` para melhorar a distribuição
 
 
-![alt text](image-3.png)
+## Resultados Comparativos
+
+| Versão     | R² CV Médio | R² CV Std | Interpretação                  |
+|------------|-------------|------------|-------------------------------|
+| Original   | ~0.77       | Alta       | Instável e com risco de overfitting |
+| Truncado   | ~1.00       | Baixíssimo | Modelo com alto ajuste, mas dados limitados |
+| Log(life)  | **~1.00**   | **≈ 0**    | **Melhor equilíbrio entre ajuste e generalização** ✅ |
 
 
 ## Conclusões
 
-A análise comparativa entre os modelos mostrou que a Árvore de Decisão foi a que apresentou o melhor desempenho para este estudo. Mesmo sem aplicar truncamento na variável life, o modelo conseguiu lidar bem com os dados, alcançando um R² próximo de 0,90. Após aplicar o truncamento (limitando life em 10⁵), o desempenho foi praticamente perfeito, com R² ≈ 0,999999.
+A predição da vida útil por fadiga é significativamente melhorada com a transformação logarítmica. O modelo baseado em árvore de decisão com `log(life)` demonstrou excelente capacidade de generalização, sendo o mais indicado para aplicações práticas.
 
-O KNN teve desempenho significativamente inferior na versão sem truncamento, com MSE elevado e R² abaixo de 0,30. Com o truncamento, o modelo melhorou bastante, mas ainda ficou abaixo da Árvore de Decisão em termos de estabilidade e precisão.
-
-Considerando todas as métricas (MSE, MAE, RMSE e R²), a Árvore de Decisão com truncamento se mostrou o modelo mais indicado para este caso. Foi mais consistente, menos sensível a valores extremos e se adaptou muito bem ao comportamento da base de fadiga estrutural.
 
 
 **Autor:** Victor Olegario  
